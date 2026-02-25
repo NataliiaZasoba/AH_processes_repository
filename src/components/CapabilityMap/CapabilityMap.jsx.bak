@@ -1,0 +1,420 @@
+import React, { useState } from 'react';
+import './CapabilityMap.css';
+
+const CapabilityMap = ({ onFilterChange }) => {
+  const [expandedSection, setExpandedSection] = useState(null);
+  const [isFullScreen, setIsFullScreen] = useState(false);
+
+  const sections = {
+    'finance': {
+      name: 'Finance & Accounting',
+      color: '#0066FF',
+      processes: ['Check received invoices', 'Checking invoices', 'Final check of invoice']
+    },
+    'sales': {
+      name: 'Marketing & Sales',
+      color: '#0066FF',
+      processes: ['Lead Generation', 'Sales Process']
+    },
+    'development': {
+      name: 'Product & Development',
+      color: '#0066FF',
+      processes: ['Requirements', 'Development']
+    },
+    'delivery': {
+      name: 'Service Delivery',
+      color: '#0066FF',
+      processes: ['Implementation', 'Quality Check']
+    },
+    'support': {
+      name: 'Customer Support',
+      color: '#0066FF',
+      processes: ['Support Tickets', 'Issue Resolution']
+    },
+    'hr': {
+      name: 'Human Resources',
+      color: '#0066FF',
+      processes: ['Employee onboarding']
+    }
+  };
+
+  // Process status colors (Signavio-style)
+  const processColors = {
+    automated: '#00C853',      // Green - Fully automated
+    semiAutomated: '#2196F3',  // Blue - Semi-automated
+    manual: '#9E9E9E',         // Gray - Manual
+    inProgress: '#FF9800',     // Orange - In progress
+  };
+
+  const handleSectionClick = (sectionKey) => {
+    const section = sections[sectionKey];
+    if (expandedSection === sectionKey) {
+      setExpandedSection(null);
+      onFilterChange(null);
+    } else {
+      setExpandedSection(sectionKey);
+      onFilterChange(section.name);
+    }
+  };
+
+  const handleBackToOverview = () => {
+    setExpandedSection(null);
+    onFilterChange(null);
+  };
+
+  const handleMaximize = () => {
+    setIsFullScreen(true);
+  };
+
+  const handleCloseFullScreen = () => {
+    setIsFullScreen(false);
+  };
+
+  // Render Signavio-style process diagram
+  const renderProcessDiagram = () => {
+    const swimlanes = [
+      { name: 'Finance & Accounting', key: 'finance', y: 0 },
+      { name: 'Human Resources', key: 'hr', y: 100 },
+      { name: 'Marketing & Sales', key: 'sales', y: 200 },
+      { name: 'Operations', key: 'delivery', y: 300 },
+      { name: 'IT & Support', key: 'support', y: 400 },
+    ];
+
+    const processes = [
+      // Finance & Accounting lane
+      { x: 80, y: 30, w: 140, h: 50, text: 'Invoice Receipt', color: processColors.automated, lane: 'finance' },
+      { x: 240, y: 30, w: 140, h: 50, text: 'Invoice Validation', color: processColors.semiAutomated, lane: 'finance' },
+      { x: 400, y: 30, w: 140, h: 50, text: 'Payment Processing', color: processColors.automated, lane: 'finance' },
+      { x: 560, y: 30, w: 140, h: 50, text: 'Reconciliation', color: processColors.semiAutomated, lane: 'finance' },
+      { x: 720, y: 30, w: 140, h: 50, text: 'Reporting', color: processColors.automated, lane: 'finance' },
+
+      // HR lane
+      { x: 80, y: 130, w: 140, h: 50, text: 'Recruitment', color: processColors.manual, lane: 'hr' },
+      { x: 240, y: 130, w: 140, h: 50, text: 'Onboarding', color: processColors.automated, lane: 'hr' },
+      { x: 400, y: 130, w: 140, h: 50, text: 'Payroll Processing', color: processColors.automated, lane: 'hr' },
+      { x: 560, y: 130, w: 140, h: 50, text: 'Performance Review', color: processColors.manual, lane: 'hr' },
+      { x: 720, y: 130, w: 140, h: 50, text: 'Offboarding', color: processColors.semiAutomated, lane: 'hr' },
+
+      // Sales lane
+      { x: 80, y: 230, w: 140, h: 50, text: 'Lead Generation', color: processColors.semiAutomated, lane: 'sales' },
+      { x: 240, y: 230, w: 140, h: 50, text: 'Lead Qualification', color: processColors.automated, lane: 'sales' },
+      { x: 400, y: 230, w: 140, h: 50, text: 'Proposal Creation', color: processColors.manual, lane: 'sales' },
+      { x: 560, y: 230, w: 140, h: 50, text: 'Contract Review', color: processColors.semiAutomated, lane: 'sales' },
+      { x: 720, y: 230, w: 140, h: 50, text: 'Deal Closure', color: processColors.manual, lane: 'sales' },
+
+      // Operations lane
+      { x: 80, y: 330, w: 140, h: 50, text: 'Order Processing', color: processColors.automated, lane: 'delivery' },
+      { x: 240, y: 330, w: 140, h: 50, text: 'Inventory Check', color: processColors.automated, lane: 'delivery' },
+      { x: 400, y: 330, w: 140, h: 50, text: 'Quality Assurance', color: processColors.semiAutomated, lane: 'delivery' },
+      { x: 560, y: 330, w: 140, h: 50, text: 'Shipping', color: processColors.semiAutomated, lane: 'delivery' },
+      { x: 720, y: 330, w: 140, h: 50, text: 'Delivery Tracking', color: processColors.automated, lane: 'delivery' },
+
+      // IT & Support lane
+      { x: 80, y: 430, w: 140, h: 50, text: 'Ticket Creation', color: processColors.automated, lane: 'support' },
+      { x: 240, y: 430, w: 140, h: 50, text: 'Issue Triage', color: processColors.semiAutomated, lane: 'support' },
+      { x: 400, y: 430, w: 140, h: 50, text: 'Problem Resolution', color: processColors.manual, lane: 'support' },
+      { x: 560, y: 430, w: 140, h: 50, text: 'Escalation', color: processColors.semiAutomated, lane: 'support' },
+      { x: 720, y: 430, w: 140, h: 50, text: 'Closure & Feedback', color: processColors.automated, lane: 'support' },
+    ];
+
+    return (
+      <svg className="capability-map__svg" viewBox="0 0 900 520" preserveAspectRatio="xMidYMid meet">
+        {/* Swimlanes */}
+        {swimlanes.map((lane, idx) => (
+          <g key={lane.key}>
+            {/* Swimlane background */}
+            <rect
+              x="0"
+              y={lane.y}
+              width="900"
+              height="100"
+              fill={idx % 2 === 0 ? '#FAFBFC' : '#FFFFFF'}
+              stroke="#E0E0E0"
+              strokeWidth="1"
+            />
+            {/* Swimlane label */}
+            <rect
+              x="0"
+              y={lane.y}
+              width="70"
+              height="100"
+              fill="#F4F5F7"
+              stroke="#E0E0E0"
+              strokeWidth="1"
+            />
+            <text
+              x="35"
+              y={lane.y + 50}
+              textAnchor="middle"
+              fontSize="11"
+              fill="#5E6C84"
+              fontWeight="600"
+              transform={`rotate(-90 35 ${lane.y + 50})`}
+            >
+              {lane.name}
+            </text>
+          </g>
+        ))}
+
+        {/* Process connections (arrows) */}
+        {processes.map((process, idx) => {
+          if (idx % 5 < 4) { // Connect horizontally within same lane
+            return (
+              <line
+                key={`conn-${idx}`}
+                x1={process.x + process.w}
+                y1={process.y + process.h / 2}
+                x2={process.x + process.w + 20}
+                y2={process.y + process.h / 2}
+                stroke="#9E9E9E"
+                strokeWidth="2"
+                markerEnd="url(#arrowhead)"
+              />
+            );
+          }
+          return null;
+        })}
+
+        {/* Arrow marker definition */}
+        <defs>
+          <marker
+            id="arrowhead"
+            markerWidth="10"
+            markerHeight="10"
+            refX="9"
+            refY="3"
+            orient="auto"
+          >
+            <polygon points="0 0, 10 3, 0 6" fill="#9E9E9E" />
+          </marker>
+        </defs>
+
+        {/* Process boxes */}
+        {processes.map((process, idx) => {
+          const isActive = expandedSection && sections[process.lane] &&
+                          expandedSection === process.lane;
+          const opacity = expandedSection && !isActive ? 0.3 : 1;
+
+          return (
+            <g
+              key={idx}
+              className="process-box clickable"
+              onClick={() => handleSectionClick(process.lane)}
+              style={{ cursor: 'pointer', opacity }}
+            >
+              <rect
+                x={process.x}
+                y={process.y}
+                width={process.w}
+                height={process.h}
+                fill={process.color}
+                stroke={isActive ? '#003D99' : process.color}
+                strokeWidth={isActive ? '3' : '1'}
+                rx="4"
+              />
+              <text
+                x={process.x + process.w / 2}
+                y={process.y + process.h / 2 + 4}
+                textAnchor="middle"
+                fontSize="11"
+                fill="white"
+                fontWeight="500"
+              >
+                {process.text}
+              </text>
+            </g>
+          );
+        })}
+      </svg>
+    );
+  };
+
+  return (
+    <>
+      <section className="capability-map">
+        <div className="capability-map__container">
+          <div className="capability-map__header">
+            <div className="capability-map__title-wrapper">
+              {expandedSection ? (
+                <div className="capability-map__breadcrumb">
+                  <button
+                    className="capability-map__back-button"
+                    onClick={handleBackToOverview}
+                    aria-label="Back to overview"
+                  >
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M10 12L6 8L10 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </button>
+                  <span className="capability-map__breadcrumb-text">
+                    <a href="#overview" onClick={(e) => { e.preventDefault(); handleBackToOverview(); }} className="capability-map__breadcrumb-link">
+                      Capability map
+                    </a>
+                    <span className="capability-map__breadcrumb-separator">›</span>
+                    <span className="capability-map__breadcrumb-current">{sections[expandedSection].name}</span>
+                  </span>
+                </div>
+              ) : (
+                <>
+                  <h2 className="capability-map__title">Capability map</h2>
+                  <button className="capability-map__info-icon" aria-label="More information">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5"/>
+                      <path d="M8 7V11M8 5V5.01" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                    </svg>
+                  </button>
+                </>
+              )}
+            </div>
+            <div className="capability-map__actions">
+              <button className="capability-map__rss-button" aria-label="RSS feed">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <circle cx="3" cy="13" r="1.5" fill="currentColor"/>
+                  <path d="M2 6C6.4 6 10 9.6 10 14M2 2C8.6 2 14 7.4 14 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                </svg>
+              </button>
+              <button className="capability-map__expand-button" aria-label="Expand to fullscreen" onClick={handleMaximize}>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M10 2H14V6M6 14H2V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M14 2L9 7M2 14L7 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div className="capability-map__content">
+            <div className="capability-map__diagram">
+              {renderProcessDiagram()}
+            </div>
+
+            <div className="capability-map__footer">
+              <span className="capability-map__timestamp">
+                Last updated: 2 mins ago, Sun 3 Feb, 3:13 PM
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Full-screen modal */}
+      {isFullScreen && (
+        <div className="capability-map__fullscreen-modal">
+          <div className="capability-map__fullscreen-header">
+            <h2 className="capability-map__fullscreen-title">Capability Map - Full View</h2>
+            <button
+              className="capability-map__close-button"
+              onClick={handleCloseFullScreen}
+              aria-label="Close fullscreen"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+            </button>
+          </div>
+          <div className="capability-map__fullscreen-content">
+            <svg className="capability-map__fullscreen-svg" viewBox="0 0 800 300" preserveAspectRatio="xMidYMid meet">
+              {/* Same content as above but larger and more interactive */}
+              <g className="process-category">
+                <rect x="20" y="20" width="150" height="30" fill="#E6F0FF" stroke="#0066FF" strokeWidth="1" rx="4"/>
+                <text x="95" y="40" textAnchor="middle" fontSize="12" fill="#172B4D">Support Services</text>
+              </g>
+
+              <g className="process-category">
+                <rect x="20" y="70" width="150" height="30" fill="#E6F0FF" stroke="#0066FF" strokeWidth="1" rx="4"/>
+                <text x="95" y="90" textAnchor="middle" fontSize="12" fill="#172B4D">Management</text>
+              </g>
+
+              <g
+                className={`core-processes clickable ${expandedSection === 'sales' ? 'active' : ''}`}
+                onClick={() => handleSectionClick('sales')}
+                style={{ cursor: 'pointer' }}
+              >
+                <rect x="200" y="20" width="120" height="40" fill="#0066FF" stroke="#0052CC" strokeWidth="1" rx="4"/>
+                <text x="260" y="44" textAnchor="middle" fontSize="11" fill="white" fontWeight="500">Marketing &amp;</text>
+                <text x="260" y="56" textAnchor="middle" fontSize="11" fill="white" fontWeight="500">Sales</text>
+              </g>
+
+              <g
+                className={`core-processes clickable ${expandedSection === 'development' ? 'active' : ''}`}
+                onClick={() => handleSectionClick('development')}
+                style={{ cursor: 'pointer' }}
+              >
+                <rect x="340" y="20" width="120" height="40" fill="#0066FF" stroke="#0052CC" strokeWidth="1" rx="4"/>
+                <text x="400" y="44" textAnchor="middle" fontSize="11" fill="white" fontWeight="500">Product &amp;</text>
+                <text x="400" y="56" textAnchor="middle" fontSize="11" fill="white" fontWeight="500">Development</text>
+              </g>
+
+              <g
+                className={`core-processes clickable ${expandedSection === 'delivery' ? 'active' : ''}`}
+                onClick={() => handleSectionClick('delivery')}
+                style={{ cursor: 'pointer' }}
+              >
+                <rect x="480" y="20" width="120" height="40" fill="#0066FF" stroke="#0052CC" strokeWidth="1" rx="4"/>
+                <text x="540" y="44" textAnchor="middle" fontSize="11" fill="white" fontWeight="500">Service</text>
+                <text x="540" y="56" textAnchor="middle" fontSize="11" fill="white" fontWeight="500">Delivery</text>
+              </g>
+
+              <g
+                className={`core-processes clickable ${expandedSection === 'support' ? 'active' : ''}`}
+                onClick={() => handleSectionClick('support')}
+                style={{ cursor: 'pointer' }}
+              >
+                <rect x="620" y="20" width="120" height="40" fill="#0066FF" stroke="#0052CC" strokeWidth="1" rx="4"/>
+                <text x="680" y="44" textAnchor="middle" fontSize="11" fill="white" fontWeight="500">Customer</text>
+                <text x="680" y="56" textAnchor="middle" fontSize="11" fill="white" fontWeight="500">Support</text>
+              </g>
+
+              {(expandedSection === 'sales' || expandedSection === null) && (
+                <>
+                  <g className="sub-process">
+                    <rect x="200" y="80" width="100" height="25" fill="white" stroke="#DFE1E6" strokeWidth="1" rx="3"/>
+                    <text x="250" y="96" textAnchor="middle" fontSize="10" fill="#5E6C84">Lead Generation</text>
+                  </g>
+                  <g className="sub-process">
+                    <rect x="310" y="80" width="100" height="25" fill="white" stroke="#DFE1E6" strokeWidth="1" rx="3"/>
+                    <text x="360" y="96" textAnchor="middle" fontSize="10" fill="#5E6C84">Sales Process</text>
+                  </g>
+                </>
+              )}
+
+              {(expandedSection === 'development' || expandedSection === null) && (
+                <>
+                  <g className="sub-process">
+                    <rect x="340" y="80" width="100" height="25" fill="white" stroke="#DFE1E6" strokeWidth="1" rx="3"/>
+                    <text x="390" y="96" textAnchor="middle" fontSize="10" fill="#5E6C84">Requirements</text>
+                  </g>
+                  <g className="sub-process">
+                    <rect x="450" y="80" width="100" height="25" fill="white" stroke="#DFE1E6" strokeWidth="1" rx="3"/>
+                    <text x="500" y="96" textAnchor="middle" fontSize="10" fill="#5E6C84">Development</text>
+                  </g>
+                </>
+              )}
+
+              {(expandedSection === 'delivery' || expandedSection === null) && (
+                <>
+                  <g className="sub-process">
+                    <rect x="480" y="80" width="100" height="25" fill="white" stroke="#DFE1E6" strokeWidth="1" rx="3"/>
+                    <text x="530" y="96" textAnchor="middle" fontSize="10" fill="#5E6C84">Implementation</text>
+                  </g>
+                  <g className="sub-process">
+                    <rect x="590" y="80" width="100" height="25" fill="white" stroke="#DFE1E6" strokeWidth="1" rx="3"/>
+                    <text x="640" y="96" textAnchor="middle" fontSize="10" fill="#5E6C84">Quality Check</text>
+                  </g>
+                </>
+              )}
+
+              {(expandedSection === 'support' || expandedSection === null) && (
+                <g className="sub-process">
+                  <rect x="620" y="80" width="100" height="25" fill="white" stroke="#DFE1E6" strokeWidth="1" rx="3"/>
+                  <text x="670" y="96" textAnchor="middle" fontSize="10" fill="#5E6C84">Support Tickets</text>
+                </g>
+              )}
+            </svg>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+
+export default CapabilityMap;

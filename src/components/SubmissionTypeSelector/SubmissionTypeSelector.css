@@ -1,0 +1,201 @@
+.type-selector {
+  background-color: var(--color-background);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.type-selector__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-2xl) var(--spacing-3xl);
+  background-color: white;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.type-selector__back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-primary);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  width: fit-content;
+}
+
+.type-selector__back-button:hover {
+  background-color: var(--color-primary-lighter);
+}
+
+.type-selector__title {
+  font-size: 32px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.type-selector__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-3xl);
+  gap: var(--spacing-2xl);
+}
+
+.type-selector__subtitle {
+  font-size: var(--font-size-body);
+  color: var(--color-text-secondary);
+  margin: 0;
+  text-align: center;
+}
+
+.type-selector__cards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  width: 100%;
+  max-width: 720px;
+}
+
+.type-selector__card {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xl);
+  padding: var(--spacing-xl);
+  background-color: white;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-align: left;
+  width: 100%;
+}
+
+.type-selector__card:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 16px rgba(0, 102, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.type-selector__card-icon {
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.type-selector__card-icon--idea {
+  background-color: #FFF9E6;
+  color: #FF8B00;
+}
+
+.type-selector__card-icon--change-request {
+  background-color: #E3F2FD;
+  color: #1565C0;
+}
+
+.type-selector__card-icon--business-process {
+  background-color: var(--color-primary-lighter);
+  color: var(--color-primary);
+}
+
+.type-selector__card:hover .type-selector__card-icon--idea {
+  background-color: #FF8B00;
+  color: white;
+}
+
+.type-selector__card:hover .type-selector__card-icon--change-request {
+  background-color: #1565C0;
+  color: white;
+}
+
+.type-selector__card:hover .type-selector__card-icon--business-process {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.type-selector__card-content {
+  flex: 1;
+}
+
+.type-selector__card-title {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin: 0 0 var(--spacing-xs) 0;
+}
+
+.type-selector__card-description {
+  font-size: var(--font-size-body);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-normal);
+  margin: 0;
+}
+
+.type-selector__card-arrow {
+  flex-shrink: 0;
+  color: var(--color-text-disabled);
+  transition: all var(--transition-fast);
+}
+
+.type-selector__card:hover .type-selector__card-arrow {
+  color: var(--color-primary);
+  transform: translateX(4px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .type-selector__header {
+    padding: var(--spacing-xl) var(--spacing-lg);
+  }
+
+  .type-selector__content {
+    padding: var(--spacing-xl) var(--spacing-lg);
+  }
+
+  .type-selector__title {
+    font-size: 24px;
+  }
+
+  .type-selector__card {
+    padding: var(--spacing-lg);
+    gap: var(--spacing-lg);
+  }
+
+  .type-selector__card-icon {
+    width: 52px;
+    height: 52px;
+  }
+}
+
+@media (max-width: 640px) {
+  .type-selector__header {
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+
+  .type-selector__content {
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+
+  .type-selector__card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+  }
+
+  .type-selector__card-arrow {
+    display: none;
+  }
+}

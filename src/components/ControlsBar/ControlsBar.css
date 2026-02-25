@@ -1,0 +1,198 @@
+.controls-bar {
+  background-color: white;
+}
+
+.controls-bar__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+}
+
+.controls-bar__left {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.controls-bar__search {
+  position: relative;
+  width: 240px;
+}
+
+.controls-bar__search-icon {
+  position: absolute;
+  left: var(--spacing-md);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-disabled);
+  pointer-events: none;
+}
+
+.controls-bar__search-input {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md) var(--spacing-sm) 36px;
+  font-size: var(--font-size-body);
+  color: var(--color-text-primary);
+  background-color: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  outline: none;
+  transition: all var(--transition-fast);
+}
+
+.controls-bar__search-input:focus {
+  border-color: var(--color-primary);
+  background-color: white;
+}
+
+.controls-bar__search-input::placeholder {
+  color: var(--color-text-disabled);
+}
+
+.controls-bar__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.controls-bar__select {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.controls-bar__label {
+  font-size: var(--font-size-body);
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+.controls-bar__dropdown {
+  appearance: none;
+  padding: var(--spacing-sm) 32px var(--spacing-sm) var(--spacing-md);
+  font-size: var(--font-size-body);
+  color: var(--color-text-primary);
+  background-color: white;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  outline: none;
+  transition: all var(--transition-fast);
+}
+
+.controls-bar__dropdown:hover {
+  border-color: var(--color-text-secondary);
+}
+
+.controls-bar__dropdown:focus {
+  border-color: var(--color-primary);
+}
+
+.controls-bar__dropdown-icon {
+  position: absolute;
+  right: var(--spacing-md);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-secondary);
+  pointer-events: none;
+}
+
+.controls-bar__filter-button {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-size: var(--font-size-body);
+  color: var(--color-text-primary);
+  background-color: white;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.controls-bar__filter-button:hover {
+  background-color: var(--color-background-hover);
+  border-color: var(--color-text-secondary);
+}
+
+.controls-bar__view-switcher {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background-color: white;
+}
+
+.controls-bar__view-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-sm);
+  width: 36px;
+  height: 36px;
+  background-color: white;
+  border: none;
+  border-right: 1px solid var(--color-border);
+  cursor: pointer;
+  color: var(--color-text-primary);
+  transition: all var(--transition-fast);
+}
+
+.controls-bar__view-button:last-child {
+  border-right: none;
+}
+
+.controls-bar__view-button:hover {
+  background-color: var(--color-background-hover);
+}
+
+.controls-bar__view-button.active {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.controls-bar__view-button.active:hover {
+  background-color: #0052CC;
+}
+
+/* Responsive behavior */
+@media (max-width: 768px) {
+  .controls-bar__container {
+    flex-wrap: wrap;
+  }
+
+  .controls-bar__left {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .controls-bar__search {
+    width: 100%;
+    max-width: none;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .controls-bar__actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .controls-bar__view-switcher {
+    margin-top: var(--spacing-sm);
+  }
+}
+
+@media (max-width: 640px) {
+  .controls-bar {
+    padding: var(--spacing-md) var(--spacing-lg);
+  }
+
+  .controls-bar__label {
+    display: none;
+  }
+}
