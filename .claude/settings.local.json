@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm start)",
+      "mcp__plugin_figma_figma-desktop__get_metadata",
+      "Bash(npm install:*)",
+      "mcp__plugin_figma_figma-desktop__get_design_context",
+      "mcp__plugin_figma_figma-desktop__get_screenshot",
+      "Bash(git --version)",
+      "Bash(gh:*)",
+      "Bash(gh auth:*)"
+    ]
+  }
+}

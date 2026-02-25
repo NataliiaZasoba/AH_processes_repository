@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/AH-processes-repository/static/css/main.31b44d8b.css",
+    "main.js": "/AH-processes-repository/static/js/main.cc919a2a.js",
+    "static/js/453.e499e9bb.chunk.js": "/AH-processes-repository/static/js/453.e499e9bb.chunk.js",
+    "index.html": "/AH-processes-repository/index.html",
+    "main.31b44d8b.css.map": "/AH-processes-repository/static/css/main.31b44d8b.css.map",
+    "main.cc919a2a.js.map": "/AH-processes-repository/static/js/main.cc919a2a.js.map",
+    "453.e499e9bb.chunk.js.map": "/AH-processes-repository/static/js/453.e499e9bb.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.31b44d8b.css",
+    "static/js/main.cc919a2a.js"
+  ]
+}
