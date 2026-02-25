@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/AH-processes-repository/static/css/main.174be941.css",
+    "main.css": "/AH-processes-repository/static/css/main.d4989f53.css",
     "main.js": "/AH-processes-repository/static/js/main.f6ad444e.js",
     "static/js/453.e499e9bb.chunk.js": "/AH-processes-repository/static/js/453.e499e9bb.chunk.js",
     "index.html": "/AH-processes-repository/index.html",
-    "main.174be941.css.map": "/AH-processes-repository/static/css/main.174be941.css.map",
+    "main.d4989f53.css.map": "/AH-processes-repository/static/css/main.d4989f53.css.map",
     "main.f6ad444e.js.map": "/AH-processes-repository/static/js/main.f6ad444e.js.map",
     "453.e499e9bb.chunk.js.map": "/AH-processes-repository/static/js/453.e499e9bb.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.174be941.css",
+    "static/css/main.d4989f53.css",
     "static/js/main.f6ad444e.js"
   ]
 }
